@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
-import { Download, Menu, X, ExternalLink, MessageCircle } from 'lucide-react';
+import { Download, Menu, X, ExternalLink, MessageCircle, LogIn, LogOut, User } from 'lucide-react';
 import { LINKS, LOGO_SRC } from '../data/esportsData';
+import { useAuth } from '../context/AuthContext';
 
 export const Navbar: React.FC = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { user, signIn, signOut } = useAuth();
 
   return (
     <header className="sticky top-0 z-50 bg-[#090b10]/95 backdrop-blur-md border-b border-purple-500/20">
@@ -28,8 +30,40 @@ export const Navbar: React.FC = () => {
           </div>
         </a>
 
-        {/* Right side controls: Download + Hamburger */}
+        {/* Right side controls: Auth + Download + Hamburger */}
         <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+          {user ? (
+            <div className="flex items-center gap-2">
+              {user.photoURL ? (
+                <img
+                  src={user.photoURL}
+                  alt={user.displayName || 'User'}
+                  className="w-7 h-7 rounded-full border border-purple-400 object-cover"
+                />
+              ) : (
+                <div className="w-7 h-7 rounded-full bg-purple-900 border border-purple-400 flex items-center justify-center text-xs text-white">
+                  {user.displayName?.[0] || 'U'}
+                </div>
+              )}
+              <button
+                onClick={() => signOut()}
+                className="hidden sm:flex items-center gap-1 text-[11px] text-slate-400 hover:text-white transition-colors"
+                title="Sign out"
+              >
+                <LogOut className="w-3.5 h-3.5" />
+                <span>Logout</span>
+              </button>
+            </div>
+          ) : (
+            <button
+              onClick={() => signIn()}
+              className="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-slate-200 hover:text-white bg-slate-800 hover:bg-slate-700 border border-slate-700 rounded-lg transition-colors whitespace-nowrap"
+            >
+              <LogIn className="w-3.5 h-3.5 text-purple-400" />
+              <span className="hidden sm:inline">Sign In</span>
+            </button>
+          )}
+
           <a
             href={LINKS.downloadApk}
             target="_blank"

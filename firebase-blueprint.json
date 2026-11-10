@@ -1,0 +1,39 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "User profile data for Monster X Esports registered players",
+      "type": "object",
+      "properties": {
+        "uid": { "type": "string", "description": "User authentication ID" },
+        "displayName": { "type": "string", "description": "Player in-game or display name" },
+        "email": { "type": "string", "description": "User email address" },
+        "photoURL": { "type": "string", "description": "Profile avatar URL" },
+        "createdAt": { "type": "string", "description": "Creation timestamp" }
+      },
+      "required": ["uid", "email"]
+    },
+    "Announcement": {
+      "title": "Announcement",
+      "description": "Tournament announcements and notices",
+      "type": "object",
+      "properties": {
+        "title": { "type": "string", "description": "Notice title" },
+        "content": { "type": "string", "description": "Notice message details" },
+        "createdAt": { "type": "string", "description": "Date of announcement" },
+        "active": { "type": "boolean", "description": "Whether active" }
+      },
+      "required": ["title", "content"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": { "$ref": "#/entities/UserProfile" },
+      "description": "Stores individual player user profiles"
+    },
+    "/announcements/{announcementId}": {
+      "schema": { "$ref": "#/entities/Announcement" },
+      "description": "Public tournament updates and server announcements"
+    }
+  }
+}
