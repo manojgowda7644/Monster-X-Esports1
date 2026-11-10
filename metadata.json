@@ -1,0 +1,6 @@
+{
+  "name": "Monster X Esports - Play & Earn Tournaments",
+  "description": "Download Monster X Esports APK or play on web. Compete in daily esports tournaments, BGMI, Free Fire and win real cash rewards with instant UPI withdrawal.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
